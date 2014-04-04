@@ -1,0 +1,37 @@
+# Customize this file to create a gnome/unity style launcher for your app
+# In the Exec lines you may add
+#  -r /path/to/rails/root
+#  -p 3000        # specify port for rails server
+#  -n title       # specify window title, class
+#  -e development # specify RAILS_ENv
+#  -z   # run with zeus
+#  -b   # run with bundler
+
+[Desktop Entry]
+Version=1.0
+Name=rails
+Comment=rails
+GenericName=Rails Server
+Type=Application
+StartupNotify=true
+StartupWMClass=rails
+Actions=Start;Console;DbConsole;Terminal
+# change this to point to your application's logo!
+Icon=utilities-terminal
+Exec=zterm start
+
+[Desktop Action Start]
+Name=rails server
+Exec=zterm start
+
+[Desktop Action Console]
+Name=rails console
+Exec=zterm console
+
+[Desktop Action DbConsole]
+Name=rails dbconsole
+Exec=zterm dbconsole
+
+[Desktop Action Terminal]
+Name=terminal
+Exec=zterm cd

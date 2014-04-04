@@ -31,3 +31,10 @@ Usage
 
 > # run a server with bundler and zeus
 > zterm -zbr /my/rails/root console
+
+Desktop Shortcut
+----------------
+
+There is a .desktop file that comes with zterm. Customize this for your application, make it executable, then add it to your launcher / menu / desktop. Voila! Single / Double click starts up your rails server!
+
+If you're feeling pretty good go take your application's logo and put that in the Icon directive in the .desktop file.
