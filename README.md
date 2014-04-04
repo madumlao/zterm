@@ -14,6 +14,9 @@ Usage
 > # rails server with port and environment
 > zterm -r /my/rails/root -p 4000 -e production
 
+> # open a terminal in the rails root
+> zterm -r /my/rails/root cd
+
 > # rails console
 > zterm -r /my/rails/root console
 

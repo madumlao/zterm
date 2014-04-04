@@ -12,7 +12,8 @@ zs_help() {
 	echo " $(basename $0) start|server|cd|console|dbconsole"
 	echo "  start|server: start a rails server"
 	echo "  console: start a rails console"
-	echo "  dbconsole: start a rails console"
+	echo "  dbconsole: start a rails dbconsole"
+	echo "  cd: open a terminal in the rails root"
 	echo
 	echo "Options: "
 	echo " -h|--help            this help"
@@ -58,6 +59,10 @@ zs_dbconsole() {
 			--tab --title "$APP_NAME console" \
 				--command "$BUNDLE_EXEC rails console -e $RAILS_ENV"
 	fi
+}
+
+zs_cd() {
+	gnome-terminal --tab --title "$APP_NAME"
 }
 
 ########
@@ -127,5 +132,6 @@ case "$ACTION" in
 	start|server) zs_start;;
 	console)  zs_console;;
 	dbconsole) zs_dbconsole;;
+	cd) zs_cd;;
 	*) zs_help; exit 1;;
 esac
