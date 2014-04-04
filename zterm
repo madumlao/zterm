@@ -1,0 +1,131 @@
+#!/bin/bash -l
+
+# Default values
+APP_NAME=rails
+APP_PORT=3000
+APP_DIR=./
+RAILS_ENV=development
+
+zs_help() {
+	echo "$(basename $0): open a gnome-terminal in a rails directory in rails"
+	echo "Usage: "
+	echo " $(basename $0) start|server|cd|console|dbconsole"
+	echo "  start|server: start a rails server"
+	echo "  console: start a rails console"
+	echo "  dbconsole: start a rails console"
+	echo
+	echo "Options: "
+	echo " -h|--help            this help"
+	echo " -n|--name=NAME       gnome-terminal title and name in X"
+	echo " -r|--root=APP_DIR    set the rails root"
+	echo " -z|--zeus            use zeus instead of rails"
+	echo " -b|--bundle          prefix commands with bundle exec"
+}
+
+zs_start() {
+	if [ "$ZEUS" ]; then
+		gnome-terminal --name="$APP_NAME" --class="$APP_NAME" \
+			--tab --title "$APP_NAME zeus start" \
+				--command "$BUNDLE_EXEC zeus start" \
+			--tab --title "$APP_NAME" \
+				--command "bash -c 'sleep 2; $BUNDLE_EXEC zeus server -p $APP_PORT -e $RAILS_ENV'"
+	else
+		gnome-terminal --name="$APP_NAME" --class="$APP_NAME" \
+			--tab --title "$APP_NAME" \
+				--command "$BUNDLE_EXEC rails server -p $APP_PORT -e $RAILS_ENV"
+	fi
+}
+
+zs_console() {
+	if [ "$ZEUS" ]; then
+		gnome-terminal --name="$APP_NAME" --class="$APP_NAME" \
+			--tab --title "$APP_NAME console" \
+				--command "$BUNDLE_EXEC zeus console -e $RAILS_ENV"
+	else
+		gnome-terminal --name="$APP_NAME" --class="$APP_NAME" \
+			--tab --title "$APP_NAME console" \
+				--command "$BUNDLE_EXEC rails console -e $RAILS_ENV"
+	fi
+}
+
+zs_dbconsole() {
+	if [ "$ZEUS" ]; then
+		gnome-terminal --name="$APP_NAME" --class="$APP_NAME" \
+			--tab --title "$APP_NAME console" \
+				--command "$BUNDLE_EXEC zeus console -e $RAILS_ENV"
+	else
+		gnome-terminal --name="$APP_NAME" --class="$APP_NAME" \
+			--tab --title "$APP_NAME console" \
+				--command "$BUNDLE_EXEC rails console -e $RAILS_ENV"
+	fi
+}
+
+########
+# Logic
+########
+
+# Process args
+ARGS="$(getopt -l help,name:,root:,environment:,port:,zeus,bundle -ohn:r:e:p:zb -- "$@")"
+if [ $? -ne 0 ]; then
+	exit 1
+fi
+eval set -- "$ARGS"
+while true; do
+	case "$1" in
+		-h|--help)
+			ACTION="help"
+			shift
+			;;
+		-n|--name)
+			APP_NAME="$2"
+			shift 2
+			;;
+		-r|--root)
+			APP_DIR="$2"
+			shift 2
+			;;
+		-e|--environment)
+			RAILS_ENV="$2"
+			shift 2
+			;;
+		-p|--port)
+			APP_PORT="$2"
+			shift 2
+			;;
+		-z|--zeus)
+			ZEUS=1
+			shift
+			;;
+		-b|--bundle)
+			BUNDLE_EXEC="bundle exec"
+			shift
+			;;
+		--)
+			shift
+			break
+			;;
+		*)
+			echo "Error processing args"
+			exit 1
+			;;
+	esac
+done
+
+if [ "$ACTION" = "help" ]; then
+	zs_help
+	exit
+fi
+
+ACTION="$1"
+if [ -z "$ACTION" ]; then
+	zs_help
+	exit 1
+fi
+
+cd $APP_DIR
+case "$ACTION" in
+	start|server) zs_start;;
+	console)  zs_console;;
+	dbconsole) zs_dbconsole;;
+	*) zs_help; exit 1;;
+esac
