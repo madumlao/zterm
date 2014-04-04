@@ -8,29 +8,29 @@ Shortcut commands for opening gnome-terminal into a rails directory.
 
 Usage
 -----
-> # rails server -p 3000 -e development
-> zterm -r /my/rails/root start
+	# rails server -p 3000 -e development
+	zterm -r /my/rails/root start
 
-> # rails server with port and environment
-> zterm -r /my/rails/root -p 4000 -e production
+	# rails server with port and environment
+	zterm -r /my/rails/root -p 4000 -e production
 
-> # open a terminal in the rails root
-> zterm -r /my/rails/root cd
+	# open a terminal in the rails root
+	zterm -r /my/rails/root cd
 
-> # rails console
-> zterm -r /my/rails/root console
+	# rails console
+	zterm -r /my/rails/root console
 
-> # rails dbconsole
-> zterm -r /my/rails/root dbconsole
+	# rails dbconsole
+	zterm -r /my/rails/root dbconsole
 
-> # run a server with bundle exec
-> zterm -br /my/rails/root start
+	# run a server with bundle exec
+	zterm -br /my/rails/root start
 
-> # run a console with zeus
-> zterm -zr /my/rails/root console
+	# run a console with zeus
+	zterm -zr /my/rails/root console
 
-> # run a server with bundler and zeus
-> zterm -zbr /my/rails/root console
+	# run a server with bundler and zeus
+	zterm -zbr /my/rails/root console
 
 Desktop Shortcut
 ----------------
