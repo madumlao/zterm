@@ -53,11 +53,11 @@ zs_dbconsole() {
 	if [ "$ZEUS" ]; then
 		gnome-terminal --name="$APP_NAME" --class="$APP_NAME" \
 			--tab --title "$APP_NAME console" \
-				--command "$BUNDLE_EXEC zeus console -e $RAILS_ENV"
+				--command "$BUNDLE_EXEC zeus dbconsole -e $RAILS_ENV"
 	else
 		gnome-terminal --name="$APP_NAME" --class="$APP_NAME" \
 			--tab --title "$APP_NAME console" \
-				--command "$BUNDLE_EXEC rails console -e $RAILS_ENV"
+				--command "$BUNDLE_EXEC rails dbconsole -e $RAILS_ENV"
 	fi
 }
 
