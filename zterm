@@ -29,7 +29,13 @@ zs_start() {
 			--tab --title "$APP_NAME zeus start" \
 				--command "$BUNDLE_EXEC zeus start" \
 			--tab --title "$APP_NAME" \
-				--command "bash -c 'sleep 2; $BUNDLE_EXEC zeus server -p $APP_PORT -e $RAILS_ENV'"
+				--command "bash -c '
+					until $BUNDLE_EXEC zeus runner Rails 2>/dev/null; do
+						sleep 1
+						echo -n .
+					done
+					$BUNDLE_EXEC zeus server -p $APP_PORT -e $RAILS_ENV
+				'"
 	else
 		gnome-terminal --name="$APP_NAME" --class="$APP_NAME" \
 			--tab --title "$APP_NAME" \
